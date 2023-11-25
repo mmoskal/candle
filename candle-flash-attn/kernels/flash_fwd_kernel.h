@@ -153,11 +153,11 @@ inline __device__ void compute_attn_1rowblock(const Params &params, const int bi
         if (n_block_max <= 0) {
             // Save seed and offset for backward. If we don't have this here, the 0-th thread block might
             // exit early and no one saves the rng state.
-            if (Is_dropout && blockIdx.x == 0 && blockIdx.y == 0 && blockIdx.z == 0 && tidx == 0) {
-                auto seeds = at::cuda::philox::unpack(params.philox_args);
-                params.rng_state[0] = std::get<0>(seeds);
-                params.rng_state[1] = std::get<1>(seeds);
-            }
+            // if (Is_dropout && blockIdx.x == 0 && blockIdx.y == 0 && blockIdx.z == 0 && tidx == 0) {
+            //     auto seeds = at::cuda::philox::unpack(params.philox_args);
+            //     params.rng_state[0] = std::get<0>(seeds);
+            //     params.rng_state[1] = std::get<1>(seeds);
+            // }
             const index_t row_offset_o = binfo.q_offset(params.o_batch_stride, params.o_row_stride, bidb)
                 + m_block * kBlockM * params.o_row_stride + bidh * params.o_head_stride;
             const index_t row_offset_lse = (bidb * params.h + bidh) * params.seqlen_q + m_block * kBlockM;
