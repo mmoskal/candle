@@ -84,7 +84,7 @@ impl PrinterOptions {
             threshold: 1000,
             edge_items: 3,
             line_width: 80,
-            sci_mode: None,
+            sci_mode: Some(false),
         }
     }
 }
